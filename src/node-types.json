@@ -1,0 +1,359 @@
+[
+  {
+    "type": "datatype",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datatype_frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "datatype",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "datatype_frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "full_iri",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "iri_rfc3987",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "iauthority",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ihost",
+          "named": true
+        },
+        {
+          "type": "iuserinfo",
+          "named": true
+        },
+        {
+          "type": "port",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ihier_part",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "iauthority",
+          "named": true
+        },
+        {
+          "type": "ipath_abempty",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ihost",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "iunreserved",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ipath_abempty",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "isegment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "iri",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "full_iri",
+          "named": true
+        },
+        {
+          "type": "simple_iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "iri_rfc3987",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ifragment",
+          "named": true
+        },
+        {
+          "type": "ihier_part",
+          "named": true
+        },
+        {
+          "type": "iquery",
+          "named": true
+        },
+        {
+          "type": "scheme",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "isegment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "iunreserved",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "iuserinfo",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "iunreserved",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ontology",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ontology_document",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ontology",
+          "named": true
+        },
+        {
+          "type": "prefix_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "prefix_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "full_iri",
+          "named": true
+        },
+        {
+          "type": "prefix_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "simple_iri",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ontology_document",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "//",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": "@",
+    "named": false
+  },
+  {
+    "type": "Datatype:",
+    "named": false
+  },
+  {
+    "type": "Ontology:",
+    "named": false
+  },
+  {
+    "type": "Prefix:",
+    "named": false
+  },
+  {
+    "type": "decimal",
+    "named": false
+  },
+  {
+    "type": "float",
+    "named": false
+  },
+  {
+    "type": "ifragment",
+    "named": true
+  },
+  {
+    "type": "integer",
+    "named": false
+  },
+  {
+    "type": "iquery",
+    "named": true
+  },
+  {
+    "type": "iunreserved",
+    "named": true
+  },
+  {
+    "type": "port",
+    "named": true
+  },
+  {
+    "type": "prefix_name",
+    "named": true
+  },
+  {
+    "type": "scheme",
+    "named": true
+  },
+  {
+    "type": "string",
+    "named": false
+  }
+]

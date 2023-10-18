@@ -1,0 +1,320 @@
+{
+  "name": "YOUR_LANGUAGE_NAME",
+  "rules": {
+    "source_file": {
+      "type": "SYMBOL",
+      "name": "ontology_document"
+    },
+    "iri": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "full_iri"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "simple_iri"
+        }
+      ]
+    },
+    "full_iri": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "iri_rfc3987"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "simple_iri": {
+      "type": "SYMBOL",
+      "name": "_pn_local"
+    },
+    "prefix_name": {
+      "type": "PATTERN",
+      "value": "([A-Za-z][A-Za-z0-9_\\-\\.]*)?:"
+    },
+    "datatype": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_datatype_iri"
+        },
+        {
+          "type": "STRING",
+          "value": "integer"
+        },
+        {
+          "type": "STRING",
+          "value": "decimal"
+        },
+        {
+          "type": "STRING",
+          "value": "float"
+        },
+        {
+          "type": "STRING",
+          "value": "string"
+        }
+      ]
+    },
+    "_datatype_iri": {
+      "type": "SYMBOL",
+      "name": "iri"
+    },
+    "ontology_document": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "prefix_declaration"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ontology"
+        }
+      ]
+    },
+    "ontology": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Ontology:"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "frame"
+          }
+        }
+      ]
+    },
+    "frame": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "datatype_frame"
+        }
+      ]
+    },
+    "prefix_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Prefix:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "prefix_name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "full_iri"
+        }
+      ]
+    },
+    "datatype_frame": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Datatype:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "datatype"
+        }
+      ]
+    },
+    "iri_rfc3987": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "scheme"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ihier_part"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "iquery"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ifragment"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "scheme": {
+      "type": "PATTERN",
+      "value": "[A-Za-z][A-Za-z0-9+\\-\\.]*"
+    },
+    "ihier_part": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "//"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "iauthority"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ipath_abempty"
+        }
+      ]
+    },
+    "iauthority": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "iuserinfo"
+                },
+                {
+                  "type": "STRING",
+                  "value": "@"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ihost"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "port"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "iuserinfo": {
+      "type": "SYMBOL",
+      "name": "iunreserved"
+    },
+    "ihost": {
+      "type": "SYMBOL",
+      "name": "iunreserved"
+    },
+    "iunreserved": {
+      "type": "PATTERN",
+      "value": "[A-Za-z0-9_\\-\\.\\~]+"
+    },
+    "port": {
+      "type": "PATTERN",
+      "value": "[0-9]*"
+    },
+    "ipath_abempty": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "/"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "isegment"
+          }
+        ]
+      }
+    },
+    "isegment": {
+      "type": "SYMBOL",
+      "name": "iunreserved"
+    },
+    "iquery": {
+      "type": "PATTERN",
+      "value": "\\?[A-Za-z0-9_\\-\\.\\~\\/\\?]*"
+    },
+    "ifragment": {
+      "type": "PATTERN",
+      "value": "\\#[A-Za-z0-9_\\-\\.\\~\\/\\?]*"
+    },
+    "_pn_local": {
+      "type": "PATTERN",
+      "value": "[A-Za-z0-9_\\-\\.]+"
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
+

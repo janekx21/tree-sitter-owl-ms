@@ -1,0 +1,32 @@
+===================
+Datatype Frame integer
+===================
+
+Ontology:
+	Datatype: integer
+
+---
+
+(source_file (ontology_document
+	(ontology
+		(frame 
+			(datatype_frame 
+				(datatype))))))
+
+
+===================
+Datatype Frame IRI
+===================
+
+Ontology:
+	Datatype: NegInt
+
+---
+
+(source_file (ontology_document
+	(ontology
+		(frame 
+			(datatype_frame 
+				(datatype
+					(iri
+						(simple_iri))))))))
