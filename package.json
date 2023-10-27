@@ -5,7 +5,8 @@
   "main": "bindings/node",
   "scripts": {
     "build": "tree-sitter generate",
-    "test": "tree-sitter test"
+    "test": "tree-sitter test",
+    "test:watch": "watch 'npm run test' ."
   },
   "keywords": [
     "owl2"
@@ -13,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nan": "^2.17.0"
+    "nan": "^2.17.0",
+    "watch": "^1.0.2"
   },
   "devDependencies": {
     "tree-sitter-cli": "^0.20.8"

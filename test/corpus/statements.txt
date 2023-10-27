@@ -10,6 +10,22 @@ Ontology: <http://www.semanticweb.org/janek/ontologies/2023/9/untitled-ontology-
 	(ontology (iri (full_iri)))))
 
 ===================
+Prefix Declaration
+===================
+
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+Ontology:
+
+---
+
+(source_file (ontology_document
+	(prefix_declaration (prefix_name) (full_iri))
+	(prefix_declaration (prefix_name) (full_iri))
+	(ontology)))
+
+===================
 Datatype Frame integer
 ===================
 
@@ -136,3 +152,31 @@ Ontology:
 					(description
 						(conjunction (primary (atomic
 							(iri (simple_iri))))))))))))
+
+
+===================
+Class Frame SubClassOf with Conjunction
+===================
+
+Ontology:
+	Class: Person
+		SubClassOf: hasAge exactly 1 and hasAge only not NegInt
+
+---
+
+(source_file (ontology_document
+	(ontology
+		(frame 
+			(class_frame 
+				(iri
+					(simple_iri))
+				(description_annotated_list
+					(description
+						(conjunction 
+							(primary (restriction 
+								(data_property_expression (iri (simple_iri)))
+								(non_negative_integer)))
+							(primary (restriction 
+								(data_property_expression (iri (simple_iri)))
+								(primary (atomic (iri (simple_iri))))))))))))))
+

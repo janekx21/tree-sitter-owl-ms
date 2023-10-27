@@ -20,7 +20,14 @@ module.exports = grammar({
     _class_iri: $ => $.iri,
     _annotation_property_iri: $ => $.iri,
     _ontology_iri: $ => $.iri,
+    _data_property_iri: $ => $.iri,
 
+    non_negative_integer: $ => choice($._zero, $._positive_integer),
+    _positive_integer: $ => seq($._non_zero, repeat($._digit)),
+    _digits: $ => repeat1($._digit),
+    _digit: $ => choice($._zero, $._non_zero),
+    _non_zero: $ => /[1-9]/,
+    _zero: $ => '0',
     
     // 2.2 Ontologies and Annotations
     ontology_document: $ => seq(repeat($.prefix_declaration), $.ontology),
@@ -32,13 +39,22 @@ module.exports = grammar({
     annotation: $ => seq($._annotation_property_iri, $.annotation_target),
     annotation_target: $ => $.iri, // todo
 
+    // 2.3  Property and Datatype Expressions
+    data_property_expression: $ => $._data_property_iri,
+    data_primary: $ => seq(optional('not'), $.data_atomic),
+    data_atomic: $ => choice($.datatype), // todo
+
     // 2.4 Descriptions
     description: $ => seq($.conjunction, repeat(seq('or', $.conjunction))),
-    conjunction: $ => choice(seq($._class_iri, 'that', optional('not'), $.restriction, repeat(seq('and', optional('not'), $.restriction))),
+    conjunction: $ => choice(
+      seq($._class_iri, 'that', optional('not'), $.restriction, repeat(seq('and', optional('not'), $.restriction))),
       seq($.primary, repeat(seq('and', $.primary)))
     ),
     primary: $ => seq(optional('not'), choice($.restriction, $.atomic)),
-    restriction: $ => 'some', // todo
+    restriction: $ => choice(
+      seq($.data_property_expression, 'only', $.primary),
+      seq($.data_property_expression, 'exactly', $.non_negative_integer, optional($.data_primary)),
+    ), // todo
     atomic: $ => choice($._class_iri, seq('(', $.description, ')')), // todo
 
 

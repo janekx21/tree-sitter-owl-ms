@@ -134,6 +134,51 @@
     }
   },
   {
+    "type": "data_atomic",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "datatype",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_primary",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "data_atomic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_property_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "datatype",
     "named": true,
     "fields": {},
@@ -245,6 +290,11 @@
     }
   },
   {
+    "type": "non_negative_integer",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "ontology",
     "named": true,
     "fields": {},
@@ -315,6 +365,33 @@
         },
         {
           "type": "restriction",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "restriction",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "data_primary",
+          "named": true
+        },
+        {
+          "type": "data_property_expression",
+          "named": true
+        },
+        {
+          "type": "non_negative_integer",
+          "named": true
+        },
+        {
+          "type": "primary",
           "named": true
         }
       ]
@@ -409,6 +486,10 @@
     "named": false
   },
   {
+    "type": "exactly",
+    "named": false
+  },
+  {
     "type": "float",
     "named": false
   },
@@ -421,15 +502,15 @@
     "named": false
   },
   {
+    "type": "only",
+    "named": false
+  },
+  {
     "type": "or",
     "named": false
   },
   {
     "type": "prefix_name",
-    "named": true
-  },
-  {
-    "type": "restriction",
     "named": true
   },
   {

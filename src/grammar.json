@@ -92,6 +92,67 @@
       "type": "SYMBOL",
       "name": "iri"
     },
+    "_data_property_iri": {
+      "type": "SYMBOL",
+      "name": "iri"
+    },
+    "non_negative_integer": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_zero"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_positive_integer"
+        }
+      ]
+    },
+    "_positive_integer": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_non_zero"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_digit"
+          }
+        }
+      ]
+    },
+    "_digits": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_digit"
+      }
+    },
+    "_digit": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_zero"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_non_zero"
+        }
+      ]
+    },
+    "_non_zero": {
+      "type": "PATTERN",
+      "value": "[1-9]"
+    },
+    "_zero": {
+      "type": "STRING",
+      "value": "0"
+    },
     "ontology_document": {
       "type": "SEQ",
       "members": [
@@ -195,6 +256,40 @@
     "annotation_target": {
       "type": "SYMBOL",
       "name": "iri"
+    },
+    "data_property_expression": {
+      "type": "SYMBOL",
+      "name": "_data_property_iri"
+    },
+    "data_primary": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "not"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_atomic"
+        }
+      ]
+    },
+    "data_atomic": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "datatype"
+        }
+      ]
     },
     "description": {
       "type": "SEQ",
@@ -339,8 +434,55 @@
       ]
     },
     "restriction": {
-      "type": "STRING",
-      "value": "some"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "data_property_expression"
+            },
+            {
+              "type": "STRING",
+              "value": "only"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "primary"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "data_property_expression"
+            },
+            {
+              "type": "STRING",
+              "value": "exactly"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "non_negative_integer"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "data_primary"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     "atomic": {
       "type": "CHOICE",
