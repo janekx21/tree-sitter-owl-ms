@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tree-sitter generate",
     "test": "tree-sitter test",
-    "test:watch": "watch 'npm run test' ."
+    "test:watch": "watch 'npm run test' .",
+    "prettier": "prettier . --write"
   },
   "keywords": [
     "owl2"
@@ -18,6 +19,7 @@
     "watch": "^1.0.2"
   },
   "devDependencies": {
+    "prettier": "3.0.3",
     "tree-sitter-cli": "^0.20.8"
   }
 }

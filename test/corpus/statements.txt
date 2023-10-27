@@ -59,6 +59,57 @@ Ontology:
 						(simple_iri))))))))
 
 ===================
+Datatype Frame Annotations
+===================
+
+Ontology:
+	Datatype: 
+		integer
+		Annotations: creator God
+
+---
+
+(source_file (ontology_document
+	(ontology
+		(frame 
+			(datatype_frame 
+				(datatype)
+				(annotation_annotated_list
+          (annotation
+            (iri
+              (simple_iri))
+            (annotation_target
+              (iri
+                (simple_iri))))))))))
+
+===================
+Datatype Frame EquivalentTo
+===================
+
+Ontology:
+	Datatype: NegInt
+		EquivalentTo:
+			Annotations: creator God
+			integer[< 0]
+
+---
+
+(source_file (ontology_document
+	(ontology
+		(frame 
+			(datatype_frame 
+				(datatype (iri (simple_iri)))
+        (annotations
+          (annotation_annotated_list (annotation
+						(iri (simple_iri))
+            (annotation_target (iri (simple_iri))))))
+          (data_range
+            (data_conjunction (data_primary (data_atomic
+                  (datatype_restriction
+                    (datatype)
+                    (facet)
+                    (literal)))))))))))
+===================
 Class Frame IRI
 ===================
 
