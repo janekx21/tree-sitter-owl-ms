@@ -1,3 +1,16 @@
+; ===================
+; Comment
+; ===================
+
+; # Comment
+; Ontology: #Comment
+; # Comment
+
+; ---
+
+; (source_file (ontology_document
+; 	(ontology)))
+
 ===================
 Full IRI
 ===================
@@ -530,5 +543,133 @@ Ontology:
                 (iri
                   (simple_iri)))
               (object_property_expression
+                (iri
+                  (simple_iri))))))))
+
+===================
+Data Property Complex
+===================
+
+Ontology:
+  DataProperty: hasAge
+    Annotations: foo Bar
+    Characteristics: Annotations: foo bar Functional
+    Domain: Person, Foo
+    Range: integer , float
+    SubPropertyOf: hasVerifiedAge , hasOther
+    EquivalentTo: hasAgeInYears ,hasOther
+    DisjointWith: hasSSN ,hasOther
+
+---
+
+(source_file
+      (ontology_document
+        (ontology
+          (frame
+            (data_property_frame
+              (iri
+                (simple_iri))
+              (annotation_annotated_list
+                (annotation
+                  (iri
+                    (simple_iri))
+                  (annotation_target
+                    (iri
+                      (simple_iri)))))
+              (annotations
+                (annotation_annotated_list
+                  (annotation
+                    (iri
+                      (simple_iri))
+                    (annotation_target
+                      (iri
+                        (simple_iri))))))
+              (description_annotated_list
+                (description
+                  (conjunction
+                    (primary
+                      (atomic
+                        (iri
+                          (simple_iri))))))
+                (description
+                  (conjunction
+                    (primary
+                      (atomic
+                        (iri
+                          (simple_iri)))))))
+              (data_range_annotated_list
+                (data_range
+                  (data_conjunction
+                    (data_primary
+                      (data_atomic
+                        (datatype)))))
+                (data_range
+                  (data_conjunction
+                    (data_primary
+                      (data_atomic
+                        (datatype))))))
+              (data_property_expression_annotated_list
+                (data_property_expression
+                  (iri
+                    (simple_iri)))
+                (data_property_expression
+                  (iri
+                    (simple_iri))))
+              (data_property_expression_annotated_list
+                (data_property_expression
+                  (iri
+                    (simple_iri)))
+                (data_property_expression
+                  (iri
+                    (simple_iri))))
+              (data_property_expression_annotated_list
+                (data_property_expression
+                  (iri
+                    (simple_iri)))
+                (data_property_expression
+                  (iri
+                    (simple_iri)))))))))
+
+
+===================
+Annotation Property Complex
+===================
+
+Ontology:
+  AnnotationProperty: creator
+    Annotations: foo bar
+    Domain: Person , Other
+    Range: integer , float
+    SubPropertyOf: initialCreator , other
+
+---
+
+(source_file
+      (ontology_document
+        (ontology
+          (frame
+            (annotation_property_frame
+              (iri
+                (simple_iri))
+              (annotation_annotated_list
+                (annotation
+                  (iri
+                    (simple_iri))
+                  (annotation_target
+                    (iri
+                      (simple_iri)))))
+              (iri_annotated_list
+                (iri
+                  (simple_iri))
+                (iri
+                  (simple_iri)))
+              (iri_annotated_list
+                (iri
+                  (simple_iri))
+                (iri
+                  (simple_iri)))
+              (annotation_property_iri_annotated_list
+                (iri
+                  (simple_iri))
                 (iri
                   (simple_iri))))))))

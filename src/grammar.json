@@ -104,6 +104,10 @@
       "type": "SYMBOL",
       "name": "iri"
     },
+    "_annotation_property_iri_annotated_list": {
+      "type": "SYMBOL",
+      "name": "iri"
+    },
     "non_negative_integer": {
       "type": "CHOICE",
       "members": [
@@ -287,6 +291,14 @@
         {
           "type": "SYMBOL",
           "name": "object_property_frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_property_frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "annotation_property_frame"
         }
       ]
     },
@@ -1127,6 +1139,195 @@
         }
       ]
     },
+    "data_property_frame": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DataProperty:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_data_property_iri"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Annotations:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "annotation_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Domain:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "description_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Range:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_range_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Characteristics:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "annotations"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "Functional"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "SubPropertyOf:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_property_expression_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "EquivalentTo:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_property_expression_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "DisjointWith:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_property_expression_annotated_list"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "annotation_property_frame": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "AnnotationProperty:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_annotation_property_iri"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Annotations:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "annotation_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Domain:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "iri_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Range:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "iri_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "SubPropertyOf:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "annotation_property_iri_annotated_list"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
     "description_annotated_list": {
       "type": "SEQ",
       "members": [
@@ -1363,6 +1564,242 @@
         }
       ]
     },
+    "data_range_annotated_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "annotations"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "data_range"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "annotations"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_range"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "data_property_expression_annotated_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "annotations"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "data_property_expression"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "annotations"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "data_property_expression"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "iri_annotated_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "annotations"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "iri"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "annotations"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "iri"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "annotation_property_iri_annotated_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "annotations"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_annotation_property_iri"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "annotations"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_annotation_property_iri"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
     "_iri_rfc3987": {
       "type": "SEQ",
       "members": [
@@ -1532,7 +1969,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "[ \\t\\n\\r]"
     }
   ],
   "conflicts": [

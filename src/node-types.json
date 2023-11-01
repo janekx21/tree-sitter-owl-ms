@@ -43,6 +43,52 @@
     }
   },
   {
+    "type": "annotation_property_frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_annotated_list",
+          "named": true
+        },
+        {
+          "type": "annotation_property_iri_annotated_list",
+          "named": true
+        },
+        {
+          "type": "iri",
+          "named": true
+        },
+        {
+          "type": "iri_annotated_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "annotation_property_iri_annotated_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "annotation_target",
     "named": true,
     "fields": {},
@@ -210,6 +256,60 @@
     }
   },
   {
+    "type": "data_property_expression_annotated_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "data_property_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_property_frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_annotated_list",
+          "named": true
+        },
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "data_property_expression_annotated_list",
+          "named": true
+        },
+        {
+          "type": "data_range_annotated_list",
+          "named": true
+        },
+        {
+          "type": "description_annotated_list",
+          "named": true
+        },
+        {
+          "type": "iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "data_range",
     "named": true,
     "fields": {},
@@ -219,6 +319,25 @@
       "types": [
         {
           "type": "data_conjunction",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "data_range_annotated_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "data_range",
           "named": true
         }
       ]
@@ -337,7 +456,15 @@
       "required": true,
       "types": [
         {
+          "type": "annotation_property_frame",
+          "named": true
+        },
+        {
           "type": "class_frame",
+          "named": true
+        },
+        {
+          "type": "data_property_frame",
           "named": true
         },
         {
@@ -389,6 +516,25 @@
         },
         {
           "type": "simple_iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "iri_annotated_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "iri",
           "named": true
         }
       ]
@@ -681,6 +827,10 @@
     "named": false
   },
   {
+    "type": "AnnotationProperty:",
+    "named": false
+  },
+  {
     "type": "Annotations:",
     "named": false
   },
@@ -694,6 +844,10 @@
   },
   {
     "type": "Class:",
+    "named": false
+  },
+  {
+    "type": "DataProperty:",
     "named": false
   },
   {

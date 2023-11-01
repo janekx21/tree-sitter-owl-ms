@@ -1,8 +1,11 @@
 module.exports = grammar({
   name: 'owl2manchestersyntax', // TODO find a better name
   conflicts: $ => [[$.datatype_frame]],
+  extras: $ => [/[ \t\n\r]/ /*, TODO $._line_comment*/],
   rules: {
+    // My rules
     source_file: $ => $.ontology_document,
+    // _line_comment: _ => token(seq('#', /.*/)), // https://github.com/tree-sitter/tree-sitter-rust/blob/master/grammar.js
 
     // https://www.w3.org/TR/owl2-manchester-syntax/
 
@@ -22,6 +25,7 @@ module.exports = grammar({
     _data_property_iri: $ => $.iri,
     _version_iri: $ => $.iri,
     _object_property_iri: $ => $.iri,
+    _annotation_property_iri_annotated_list: $ => $.iri,
 
     non_negative_integer: $ => choice($._zero, $._positive_integer),
     _positive_integer: $ => seq($._non_zero, repeat($._digit)),
@@ -54,7 +58,13 @@ module.exports = grammar({
       ),
 
     frame: $ =>
-      choice($.datatype_frame, $.class_frame, $.object_property_frame), // TODO dataPropertyFrame annotationPropertyFrame individualFrame misc
+      choice(
+        $.datatype_frame,
+        $.class_frame,
+        $.object_property_frame,
+        $.data_property_frame,
+        $.annotation_property_frame,
+      ), // TODO individualFrame misc
     prefix_declaration: $ => seq('Prefix:', $.prefix_name, $.full_iri),
 
     annotations: $ => seq('Annotations:', $.annotation_annotated_list),
@@ -65,6 +75,7 @@ module.exports = grammar({
     object_property_expression: $ =>
       choice($._object_property_iri, $.inverse_object_property),
     inverse_object_property: $ => seq('inverse', $._object_property_iri),
+    data_property_expression: $ => $._data_property_iri,
 
     data_property_expression: $ => $._data_property_iri,
     data_primary: $ => seq(optional('not'), $.data_atomic),
@@ -194,6 +205,37 @@ module.exports = grammar({
         'Transitive',
       ),
 
+    data_property_frame: $ =>
+      seq(
+        'DataProperty:',
+        $._data_property_iri,
+        repeat(
+          choice(
+            seq('Annotations:', $.annotation_annotated_list),
+            seq('Domain:', $.description_annotated_list),
+            seq('Range:', $.data_range_annotated_list),
+            seq('Characteristics:', $.annotations, 'Functional'),
+            seq('SubPropertyOf:', $.data_property_expression_annotated_list),
+            seq('EquivalentTo:', $.data_property_expression_annotated_list),
+            seq('DisjointWith:', $.data_property_expression_annotated_list),
+          ),
+        ),
+      ),
+
+    annotation_property_frame: $ =>
+      seq(
+        'AnnotationProperty:',
+        $._annotation_property_iri,
+        repeat(
+          choice(
+            seq('Annotations:', $.annotation_annotated_list),
+            seq('Domain:', $.iri_annotated_list),
+            seq('Range:', $.iri_annotated_list),
+            seq('SubPropertyOf:', $.annotation_property_iri_annotated_list),
+          ),
+        ),
+      ),
+
     // Annotated Lists
     description_annotated_list: $ =>
       annotated_list($.annotations, $.description),
@@ -202,6 +244,12 @@ module.exports = grammar({
       annotated_list($.annotations, $.object_property_expression),
     object_property_characteristic_annotated_list: $ =>
       annotated_list($.annotations, $.object_property_characteristic),
+    data_range_annotated_list: $ => annotated_list($.annotations, $.data_range),
+    data_property_expression_annotated_list: $ =>
+      annotated_list($.annotations, $.data_property_expression),
+    iri_annotated_list: $ => annotated_list($.annotations, $.iri),
+    annotation_property_iri_annotated_list: $ =>
+      annotated_list($.annotations, $._annotation_property_iri),
 
     // IRI [RFC 3987]
     // TODO finish
