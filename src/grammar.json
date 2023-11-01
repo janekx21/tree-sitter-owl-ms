@@ -1037,9 +1037,93 @@
                     "name": "object_property_expression_annotated_list"
                   }
                 ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "Characteristics:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "object_property_characteristic_annotated_list"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "SubPropertyChain:"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "annotations"
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "object_property_expression"
+                      },
+                      {
+                        "type": "REPEAT",
+                        "content": {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": "o"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "object_property_expression"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
+        }
+      ]
+    },
+    "object_property_characteristic": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Functional"
+        },
+        {
+          "type": "STRING",
+          "value": "InverseFunctional"
+        },
+        {
+          "type": "STRING",
+          "value": "Reflexive"
+        },
+        {
+          "type": "STRING",
+          "value": "Irreflexive"
+        },
+        {
+          "type": "STRING",
+          "value": "Symmetric"
+        },
+        {
+          "type": "STRING",
+          "value": "Asymmetric"
+        },
+        {
+          "type": "STRING",
+          "value": "Transitive"
         }
       ]
     },
@@ -1212,6 +1296,65 @@
                   {
                     "type": "SYMBOL",
                     "name": "object_property_expression"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "object_property_characteristic_annotated_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "annotations"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "object_property_characteristic"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "annotations"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "object_property_characteristic"
                   }
                 ]
               }

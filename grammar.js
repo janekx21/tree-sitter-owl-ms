@@ -170,13 +170,28 @@ module.exports = grammar({
             seq('EquivalentTo:', $.object_property_expression_annotated_list),
             seq('DisjointWith:', $.object_property_expression_annotated_list),
             seq('InverseOf:', $.object_property_expression_annotated_list),
-            /* TODO
-             | 'Characteristics:' objectPropertyCharacteristicAnnotatedList
-             | 'SubPropertyChain:' annotations objectPropertyExpression 'o' objectPropertyExpression
-                                                      { 'o' objectPropertyExpression } }
-          */
+            seq(
+              'Characteristics:',
+              $.object_property_characteristic_annotated_list,
+            ),
+            seq(
+              'SubPropertyChain:',
+              $.annotations,
+              sep1($.object_property_expression, 'o'),
+            ),
           ),
         ),
+      ),
+
+    object_property_characteristic: $ =>
+      choice(
+        'Functional',
+        'InverseFunctional',
+        'Reflexive',
+        'Irreflexive',
+        'Symmetric',
+        'Asymmetric',
+        'Transitive',
       ),
 
     // Annotated Lists
@@ -185,6 +200,8 @@ module.exports = grammar({
     annotation_annotated_list: $ => annotated_list($.annotations, $.annotation),
     object_property_expression_annotated_list: $ =>
       annotated_list($.annotations, $.object_property_expression),
+    object_property_characteristic_annotated_list: $ =>
+      annotated_list($.annotations, $.object_property_characteristic),
 
     // IRI [RFC 3987]
     // TODO finish

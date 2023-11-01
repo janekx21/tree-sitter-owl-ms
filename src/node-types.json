@@ -405,6 +405,30 @@
     "fields": {}
   },
   {
+    "type": "object_property_characteristic",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "object_property_characteristic_annotated_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "object_property_characteristic",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "object_property_expression",
     "named": true,
     "fields": {},
@@ -455,11 +479,23 @@
           "named": true
         },
         {
+          "type": "annotations",
+          "named": true
+        },
+        {
           "type": "description_annotated_list",
           "named": true
         },
         {
           "type": "iri",
+          "named": true
+        },
+        {
+          "type": "object_property_characteristic_annotated_list",
+          "named": true
+        },
+        {
+          "type": "object_property_expression",
           "named": true
         },
         {
@@ -649,6 +685,14 @@
     "named": false
   },
   {
+    "type": "Asymmetric",
+    "named": false
+  },
+  {
+    "type": "Characteristics:",
+    "named": false
+  },
+  {
     "type": "Class:",
     "named": false
   },
@@ -669,7 +713,19 @@
     "named": false
   },
   {
+    "type": "Functional",
+    "named": false
+  },
+  {
+    "type": "InverseFunctional",
+    "named": false
+  },
+  {
     "type": "InverseOf:",
+    "named": false
+  },
+  {
+    "type": "Irreflexive",
     "named": false
   },
   {
@@ -689,11 +745,27 @@
     "named": false
   },
   {
+    "type": "Reflexive",
+    "named": false
+  },
+  {
     "type": "SubClassOf:",
     "named": false
   },
   {
+    "type": "SubPropertyChain:",
+    "named": false
+  },
+  {
     "type": "SubPropertyOf:",
+    "named": false
+  },
+  {
+    "type": "Symmetric",
+    "named": false
+  },
+  {
+    "type": "Transitive",
     "named": false
   },
   {
@@ -746,6 +818,10 @@
   },
   {
     "type": "not",
+    "named": false
+  },
+  {
+    "type": "o",
     "named": false
   },
   {

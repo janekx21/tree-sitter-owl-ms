@@ -1,5 +1,5 @@
 ## Do List
 
-- [ ] add objectPropertyFrame
+- [x] add objectPropertyFrame
 - [ ] add annotationPropertyFrame
 - [ ] extend the class frame

@@ -375,12 +375,37 @@ Ontology:
                       (simple_iri))))))))))))
 
 ===================
+Object Property Characteristics
+===================
+
+Ontology:
+	  ObjectProperty: hasWife
+			Characteristics: Functional, InverseFunctional, Reflexive, Irreflexive, Asymmetric, Transitive
+---
+
+(source_file
+  (ontology_document
+    (ontology
+      (frame
+        (object_property_frame
+          (iri
+            (simple_iri))
+          (object_property_characteristic_annotated_list
+            (object_property_characteristic)
+            (object_property_characteristic)
+            (object_property_characteristic)
+            (object_property_characteristic)
+            (object_property_characteristic)
+            (object_property_characteristic)))))))
+
+===================
 Object Property Complex
 ===================
 
 Ontology:
 	  ObjectProperty: hasWife
 	    Annotations: creator God
+			Characteristics: Functional, InverseFunctional, Reflexive, Irreflexive, Asymmetric, Transitive
 	    Domain: Annotations: rdfs:comment "General domain",
 	                         creator John
 	              Person,
@@ -391,94 +416,119 @@ Ontology:
 	    EquivalentTo: isMarriedTo , andOther
 	    DisjointWith: hates , andOther
 	    InverseOf: hasSpouse, inverse hasSpouse
+	    SubPropertyChain: Annotations: foo bar hasChild o hasParent o hasOther
 ---
 
 (source_file
-    (ontology_document
-      (ontology
-        (frame
-          (object_property_frame
-            (iri
-              (simple_iri))
-            (annotation_annotated_list
-              (annotation
-                (iri
-                  (simple_iri))
-                (annotation_target
+      (ontology_document
+        (ontology
+          (frame
+            (object_property_frame
+              (iri
+                (simple_iri))
+              (annotation_annotated_list
+                (annotation
                   (iri
-                    (simple_iri)))))
-            (description_annotated_list
+                    (simple_iri))
+                  (annotation_target
+                    (iri
+                      (simple_iri)))))
+              (object_property_characteristic_annotated_list
+                (object_property_characteristic)
+                (object_property_characteristic)
+                (object_property_characteristic)
+                (object_property_characteristic)
+                (object_property_characteristic)
+                (object_property_characteristic))
+              (description_annotated_list
+                (annotations
+                  (annotation_annotated_list
+                    (annotation
+                      (iri
+                        (abbreviated_iri))
+                      (annotation_target
+                        (literal)))
+                    (annotation
+                      (iri
+                        (simple_iri))
+                      (annotation_target
+                        (iri
+                          (simple_iri))))))
+                (description
+                  (conjunction
+                    (primary
+                      (atomic
+                        (iri
+                          (simple_iri))))))
+                (annotations
+                  (annotation_annotated_list
+                    (annotation
+                      (iri
+                        (abbreviated_iri))
+                      (annotation_target
+                        (literal)))))
+                (description
+                  (conjunction
+                    (primary
+                      (atomic
+                        (iri
+                          (simple_iri)))))))
+              (description_annotated_list
+                (description
+                  (conjunction
+                    (primary
+                      (atomic
+                        (iri
+                          (simple_iri))))))
+                (description
+                  (conjunction
+                    (primary
+                      (atomic
+                        (iri
+                          (simple_iri)))))))
+              (object_property_expression_annotated_list
+                (object_property_expression
+                  (iri
+                    (simple_iri)))
+                (object_property_expression
+                  (iri
+                    (simple_iri))))
+              (object_property_expression_annotated_list
+                (object_property_expression
+                  (iri
+                    (simple_iri)))
+                (object_property_expression
+                  (iri
+                    (simple_iri))))
+              (object_property_expression_annotated_list
+                (object_property_expression
+                  (iri
+                    (simple_iri)))
+                (object_property_expression
+                  (iri
+                    (simple_iri))))
+              (object_property_expression_annotated_list
+                (object_property_expression
+                  (iri
+                    (simple_iri)))
+                (object_property_expression
+                  (inverse_object_property
+                    (iri
+                      (simple_iri)))))
               (annotations
                 (annotation_annotated_list
-                  (annotation
-                    (iri
-                      (abbreviated_iri))
-                    (annotation_target
-                      (literal)))
                   (annotation
                     (iri
                       (simple_iri))
                     (annotation_target
                       (iri
                         (simple_iri))))))
-              (description
-                (conjunction
-                  (primary
-                    (atomic
-                      (iri
-                        (simple_iri))))))
-              (annotations
-                (annotation_annotated_list
-                  (annotation
-                    (iri
-                      (abbreviated_iri))
-                    (annotation_target
-                      (literal)))))
-              (description
-                (conjunction
-                  (primary
-                    (atomic
-                      (iri
-                        (simple_iri)))))))
-            (description_annotated_list
-              (description
-                (conjunction
-                  (primary
-                    (atomic
-                      (iri
-                        (simple_iri))))))
-              (description
-                (conjunction
-                  (primary
-                    (atomic
-                      (iri
-                        (simple_iri)))))))
-            (object_property_expression_annotated_list
               (object_property_expression
                 (iri
                   (simple_iri)))
               (object_property_expression
                 (iri
-                  (simple_iri))))
-            (object_property_expression_annotated_list
-              (object_property_expression
-                (iri
                   (simple_iri)))
               (object_property_expression
                 (iri
-                  (simple_iri))))
-            (object_property_expression_annotated_list
-              (object_property_expression
-                (iri
-                  (simple_iri)))
-              (object_property_expression
-                (iri
-                  (simple_iri))))
-            (object_property_expression_annotated_list
-              (object_property_expression
-                (iri
-                  (simple_iri)))
-              (object_property_expression
-                (inverse_object_property
-                  (iri
-                    (simple_iri))))))))))
+                  (simple_iri))))))))
