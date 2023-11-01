@@ -53,6 +53,10 @@
         {
           "type": "iri",
           "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
         }
       ]
     }
@@ -99,6 +103,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "annotation_annotated_list",
+          "named": true
+        },
         {
           "type": "description_annotated_list",
           "named": true
@@ -335,6 +343,10 @@
         {
           "type": "datatype_frame",
           "named": true
+        },
+        {
+          "type": "object_property_frame",
+          "named": true
         }
       ]
     }
@@ -343,6 +355,21 @@
     "type": "full_iri",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "inverse_object_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "iri",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "iri",
@@ -376,6 +403,71 @@
     "type": "non_negative_integer",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "object_property_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "inverse_object_property",
+          "named": true
+        },
+        {
+          "type": "iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "object_property_expression_annotated_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "object_property_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "object_property_frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_annotated_list",
+          "named": true
+        },
+        {
+          "type": "description_annotated_list",
+          "named": true
+        },
+        {
+          "type": "iri",
+          "named": true
+        },
+        {
+          "type": "object_property_expression_annotated_list",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "ontology",
@@ -565,7 +657,23 @@
     "named": false
   },
   {
+    "type": "DisjointWith:",
+    "named": false
+  },
+  {
+    "type": "Domain:",
+    "named": false
+  },
+  {
     "type": "EquivalentTo:",
+    "named": false
+  },
+  {
+    "type": "InverseOf:",
+    "named": false
+  },
+  {
+    "type": "ObjectProperty:",
     "named": false
   },
   {
@@ -577,7 +685,15 @@
     "named": false
   },
   {
+    "type": "Range:",
+    "named": false
+  },
+  {
     "type": "SubClassOf:",
+    "named": false
+  },
+  {
+    "type": "SubPropertyOf:",
     "named": false
   },
   {
@@ -606,6 +722,10 @@
   },
   {
     "type": "integer",
+    "named": false
+  },
+  {
+    "type": "inverse",
     "named": false
   },
   {

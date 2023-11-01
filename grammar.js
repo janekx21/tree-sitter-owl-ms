@@ -21,6 +21,7 @@ module.exports = grammar({
     _ontology_iri: $ => $.iri,
     _data_property_iri: $ => $.iri,
     _version_iri: $ => $.iri,
+    _object_property_iri: $ => $.iri,
 
     non_negative_integer: $ => choice($._zero, $._positive_integer),
     _positive_integer: $ => seq($._non_zero, repeat($._digit)),
@@ -33,13 +34,15 @@ module.exports = grammar({
       choice(
         // TODO
         // $.typed_literal,
-        // $.string_literal_no_language,
+        $._string_literal_no_language,
         // $.string_literal_with_language,
         $._integer_literal,
         // $.decimal_literal,
         // $.floating_point_literal,
       ),
     _integer_literal: $ => seq(optional(choice('+', '-')), $._digits),
+    _string_literal_no_language: $ => $._quotedString,
+    _quotedString: $ => /"([^"\\]|\\\\|\\")*"/,
 
     // 2.2 Ontologies and Annotations
     ontology_document: $ => seq(repeat($.prefix_declaration), $.ontology),
@@ -50,14 +53,19 @@ module.exports = grammar({
         /* TODO import and annotations */ repeat($.frame),
       ),
 
-    frame: $ => choice($.datatype_frame, $.class_frame), // TODO objectPropertyFrame dataPropertyFrame annotationPropertyFrame individualFrame misc
+    frame: $ =>
+      choice($.datatype_frame, $.class_frame, $.object_property_frame), // TODO dataPropertyFrame annotationPropertyFrame individualFrame misc
     prefix_declaration: $ => seq('Prefix:', $.prefix_name, $.full_iri),
 
     annotations: $ => seq('Annotations:', $.annotation_annotated_list),
     annotation: $ => seq($._annotation_property_iri, $.annotation_target),
-    annotation_target: $ => $.iri, // TODO
+    annotation_target: $ => choice($.iri, $.literal), // TODO nodeID
 
     // 2.3  Property and Datatype Expressions
+    object_property_expression: $ =>
+      choice($._object_property_iri, $.inverse_object_property),
+    inverse_object_property: $ => seq('inverse', $._object_property_iri),
+
     data_property_expression: $ => $._data_property_iri,
     data_primary: $ => seq(optional('not'), $.data_atomic),
     data_atomic: $ => choice($.datatype), // TODO
@@ -127,6 +135,7 @@ module.exports = grammar({
       ),
 
     // 2.5 Frames and Miscellaneous
+
     datatype_frame: $ =>
       seq(
         'Datatype:',
@@ -135,17 +144,47 @@ module.exports = grammar({
         optional(seq('EquivalentTo:', $.annotations, $.data_range)),
         repeat(seq('Annotations:', $.annotation_annotated_list)),
       ),
+
     class_frame: $ =>
       seq(
         'Class:',
         $._class_iri,
-        repeat(choice(seq('SubClassOf:', $.description_annotated_list))),
-      ), // TODO annotations equivaltentto disjointwith disjointuniionof haskey
+        repeat(
+          choice(
+            seq('SubClassOf:', $.description_annotated_list),
+            seq('Annotations:', $.annotation_annotated_list),
+          ),
+        ),
+      ), // TODO equivaltentto disjointwith disjointuniionof haskey
+
+    object_property_frame: $ =>
+      seq(
+        'ObjectProperty:',
+        $._object_property_iri,
+        repeat(
+          choice(
+            seq('Annotations:', $.annotation_annotated_list),
+            seq('Domain:', $.description_annotated_list),
+            seq('Range:', $.description_annotated_list),
+            seq('SubPropertyOf:', $.object_property_expression_annotated_list),
+            seq('EquivalentTo:', $.object_property_expression_annotated_list),
+            seq('DisjointWith:', $.object_property_expression_annotated_list),
+            seq('InverseOf:', $.object_property_expression_annotated_list),
+            /* TODO
+             | 'Characteristics:' objectPropertyCharacteristicAnnotatedList
+             | 'SubPropertyChain:' annotations objectPropertyExpression 'o' objectPropertyExpression
+                                                      { 'o' objectPropertyExpression } }
+          */
+          ),
+        ),
+      ),
 
     // Annotated Lists
     description_annotated_list: $ =>
       annotated_list($.annotations, $.description),
     annotation_annotated_list: $ => annotated_list($.annotations, $.annotation),
+    object_property_expression_annotated_list: $ =>
+      annotated_list($.annotations, $.object_property_expression),
 
     // IRI [RFC 3987]
     // TODO finish
