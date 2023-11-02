@@ -77,9 +77,12 @@ module.exports = grammar({
       seq(
         'Ontology:',
         optional(seq($._ontology_iri, optional($._version_iri))),
+        repeat($.import),
         repeat($.annotations),
-        /* TODO import */ repeat($.frame),
+        repeat($.frame),
       ),
+
+    import: $ => seq('Import:', $.iri),
 
     frame: $ =>
       choice(

@@ -1,5 +1,5 @@
 {
-  "name": "owl2manchestersyntax",
+  "name": "owl2ms",
   "rules": {
     "source_file": {
       "type": "SYMBOL",
@@ -548,6 +548,13 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
+            "name": "import"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
             "name": "annotations"
           }
         },
@@ -557,6 +564,19 @@
             "type": "SYMBOL",
             "name": "frame"
           }
+        }
+      ]
+    },
+    "import": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Import:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "iri"
         }
       ]
     },

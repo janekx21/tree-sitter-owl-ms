@@ -21,5 +21,13 @@
   "devDependencies": {
     "prettier": "3.0.3",
     "tree-sitter-cli": "^0.20.8"
-  }
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.omn",
+      "file-types": [
+        "omn"
+      ]
+    }
+  ]
 }

@@ -607,6 +607,21 @@
     "fields": {}
   },
   {
+    "type": "import",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "iri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "individual",
     "named": true,
     "fields": {},
@@ -985,6 +1000,10 @@
           "named": true
         },
         {
+          "type": "import",
+          "named": true
+        },
+        {
           "type": "iri",
           "named": true
         }
@@ -1249,6 +1268,10 @@
   },
   {
     "type": "HasKey:",
+    "named": false
+  },
+  {
+    "type": "Import:",
     "named": false
   },
   {
