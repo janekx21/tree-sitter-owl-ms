@@ -1,5 +1,5 @@
 module.exports = grammar({
-  name: 'owl2manchestersyntax', // TODO find a better name
+  name: 'owl2ms',
   conflicts: $ => [
     [$.datatype_frame],
     [$._data_property_iri, $._object_property_iri],
