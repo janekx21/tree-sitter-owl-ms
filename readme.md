@@ -2,5 +2,6 @@
 
 - [x] add objectPropertyFrame
 - [x] add annotationPropertyFrame
-- [ ] extend the class frame
+- [x] add individual
+- [x] extend the class frame
 - [x] add dataPropertyFrame

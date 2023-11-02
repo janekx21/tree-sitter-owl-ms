@@ -318,6 +318,28 @@ Ontology:
 								(primary (atomic (iri (simple_iri))))))))))))))
 
 
+
+===================
+Class Frame Complex
+===================
+
+Ontology:
+  Class: Person
+    Annotations: foo bar
+    SubClassOf: owl:Thing that hasFirstName exactly 1 and hasFirstName only string[minLength 1]  
+    SubClassOf: hasAge exactly 1 and hasAge only not NegInt
+    SubClassOf: hasGender exactly 1 and hasGender only {female , male} 
+    SubClassOf: hasSSN max 1, hasSSN min 1
+    SubClassOf: not hates Self
+    EquivalentTo: g:People
+    DisjointWith: g:Rock , g:Mineral 
+    DisjointUnionOf: Annotations: foo bar Child, Adult
+    HasKey: Annotations: foo bar hasSSN
+
+---
+
+
+
 ===================
 Object Property
 ===================
@@ -673,3 +695,16 @@ Ontology:
                   (simple_iri))
                 (iri
                   (simple_iri))))))))
+
+===================
+Individual Complex
+===================
+
+Ontology:
+  Individual: John
+    Annotations: foo bar
+    Types: Person , hasFirstName value "John" or hasFirstName value "Jack"^^xsd:string
+    Facts: hasWife Mary, not hasChild Susan, hasAge 33, hasChild _:child1
+    SameAs: Jack , John2
+    DifferentFrom: Susan ,Susan2
+---

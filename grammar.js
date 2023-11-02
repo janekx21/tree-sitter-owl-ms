@@ -1,6 +1,10 @@
 module.exports = grammar({
   name: 'owl2manchestersyntax', // TODO find a better name
-  conflicts: $ => [[$.datatype_frame]],
+  conflicts: $ => [
+    [$.datatype_frame],
+    [$._data_property_iri, $._object_property_iri],
+    [$._datatype_iri, $._class_iri],
+  ],
   extras: $ => [/[ \t\n\r]/ /*, TODO $._line_comment*/],
   rules: {
     // My rules
@@ -26,6 +30,9 @@ module.exports = grammar({
     _version_iri: $ => $.iri,
     _object_property_iri: $ => $.iri,
     _annotation_property_iri_annotated_list: $ => $.iri,
+    _individual_iri: $ => $.iri,
+    individual: $ => choice($._individual_iri, $.node_id),
+    node_id: $ => seq('_:', $._pn_local),
 
     non_negative_integer: $ => choice($._zero, $._positive_integer),
     _positive_integer: $ => seq($._non_zero, repeat($._digit)),
@@ -36,17 +43,33 @@ module.exports = grammar({
 
     literal: $ =>
       choice(
-        // TODO
-        // $.typed_literal,
+        $._typed_literal,
         $._string_literal_no_language,
-        // $.string_literal_with_language,
+        $._string_literal_with_language,
         $._integer_literal,
-        // $.decimal_literal,
-        // $.floating_point_literal,
+        $._decimal_literal,
+        $._floating_point_literal,
+      ),
+    _decimal_literal: $ =>
+      seq(optional(choice('+', '-')), $._digits, '.', $._digits),
+    _floating_point_literal: $ =>
+      seq(
+        optional(choice('+', '-')),
+        choice(
+          seq($._digits, optional(seq('.', $._digits)), optional($._exponent)),
+          seq('.', $._digits, optional($._exponent)),
+        ),
+        choice('f', 'F'),
       ),
     _integer_literal: $ => seq(optional(choice('+', '-')), $._digits),
-    _string_literal_no_language: $ => $._quotedString,
-    _quotedString: $ => /"([^"\\]|\\\\|\\")*"/,
+    _exponent: $ =>
+      seq(choice('e', 'E'), optional(choice('+', '-')), $._digits),
+    _string_literal_no_language: $ => $._quoted_string,
+    _quoted_string: $ => /"([^"\\]|\\\\|\\")*"/,
+    _string_literal_with_language: $ => seq($._quoted_string, $._language_tag),
+    _language_tag: $ => /@[a-zA-Z\-]+/, // TODO make more strict https://www.rfc-editor.org/rfc/bcp/bcp47.txt
+    _typed_literal: $ => seq($._lexial_value, '^^', $.datatype),
+    _lexial_value: $ => $._quoted_string,
 
     // 2.2 Ontologies and Annotations
     ontology_document: $ => seq(repeat($.prefix_declaration), $.ontology),
@@ -54,7 +77,8 @@ module.exports = grammar({
       seq(
         'Ontology:',
         optional(seq($._ontology_iri, optional($._version_iri))),
-        /* TODO import and annotations */ repeat($.frame),
+        repeat($.annotations),
+        /* TODO import */ repeat($.frame),
       ),
 
     frame: $ =>
@@ -64,12 +88,14 @@ module.exports = grammar({
         $.object_property_frame,
         $.data_property_frame,
         $.annotation_property_frame,
-      ), // TODO individualFrame misc
+        $.individual_frame,
+        $.misc,
+      ),
     prefix_declaration: $ => seq('Prefix:', $.prefix_name, $.full_iri),
 
     annotations: $ => seq('Annotations:', $.annotation_annotated_list),
     annotation: $ => seq($._annotation_property_iri, $.annotation_target),
-    annotation_target: $ => choice($.iri, $.literal), // TODO nodeID
+    annotation_target: $ => choice($.iri, $.literal, $.node_id),
 
     // 2.3  Property and Datatype Expressions
     object_property_expression: $ =>
@@ -79,7 +105,13 @@ module.exports = grammar({
 
     data_property_expression: $ => $._data_property_iri,
     data_primary: $ => seq(optional('not'), $.data_atomic),
-    data_atomic: $ => choice($.datatype), // TODO
+    data_atomic: $ =>
+      choice(
+        $.datatype,
+        seq('{', $.literal_list, '}'),
+        $.datatype_restriction,
+        seq('(', $.data_range, ')'),
+      ),
 
     data_range: $ => sep1($.data_conjunction, 'or'),
     data_conjunction: $ => sep1($.data_primary, 'and'),
@@ -87,7 +119,7 @@ module.exports = grammar({
     data_atomic: $ =>
       choice(
         $.datatype,
-        seq('{', /* TODO literal list */ '}'),
+        seq('{', $.literal_list, '}'),
         $.datatype_restriction,
         seq('(', $.data_range, ')'),
       ),
@@ -128,20 +160,55 @@ module.exports = grammar({
 
     restriction: $ =>
       choice(
+        seq($.data_property_expression, 'some', $.primary),
+        seq($.data_property_expression, 'some', $.data_primary),
         seq($.data_property_expression, 'only', $.primary),
+        seq($.data_property_expression, 'only', $.data_primary),
+        seq($.data_property_expression, 'Self'),
+        seq(
+          $.data_property_expression,
+          'min',
+          $.non_negative_integer,
+          optional($.primary),
+        ),
+        seq(
+          $.data_property_expression,
+          'min',
+          $.non_negative_integer,
+          optional($.data_primary),
+        ),
+        seq(
+          $.data_property_expression,
+          'max',
+          $.non_negative_integer,
+          optional($.primary),
+        ),
+        seq(
+          $.data_property_expression,
+          'max',
+          $.non_negative_integer,
+          optional($.data_primary),
+        ),
+        seq(
+          $.data_property_expression,
+          'exactly',
+          $.non_negative_integer,
+          optional($.primary),
+        ),
         seq(
           $.data_property_expression,
           'exactly',
           $.non_negative_integer,
           optional($.data_primary),
         ),
-        /* TODO many rules */
+        seq($.object_property_expression, 'value', $.individual),
+        seq($.data_property_expression, 'value', $.literal),
       ),
 
     atomic: $ =>
       choice(
         $._class_iri,
-        /* TODO individualList */
+        seq('{', $.individual_list, '}'),
         seq('(', $.description, ')'),
       ),
 
@@ -152,7 +219,7 @@ module.exports = grammar({
         'Datatype:',
         $.datatype,
         repeat(seq('Annotations:', $.annotation_annotated_list)),
-        optional(seq('EquivalentTo:', $.annotations, $.data_range)),
+        optional(seq('EquivalentTo:', optional($.annotations), $.data_range)),
         repeat(seq('Annotations:', $.annotation_annotated_list)),
       ),
 
@@ -162,11 +229,28 @@ module.exports = grammar({
         $._class_iri,
         repeat(
           choice(
-            seq('SubClassOf:', $.description_annotated_list),
             seq('Annotations:', $.annotation_annotated_list),
+            seq('SubClassOf:', $.description_annotated_list),
+            seq('EquivalentTo:', $.description_annotated_list),
+            seq('DisjointWith:', $.description_annotated_list),
+            seq(
+              'DisjointUnionOf:',
+              optional($.annotations),
+              $.description_2list,
+            ),
+            seq(
+              'HasKey:',
+              optional($.annotations),
+              repeat1(
+                choice(
+                  $.object_property_expression,
+                  $.data_property_expression,
+                ),
+              ),
+            ),
           ),
         ),
-      ), // TODO equivaltentto disjointwith disjointuniionof haskey
+      ),
 
     object_property_frame: $ =>
       seq(
@@ -187,7 +271,7 @@ module.exports = grammar({
             ),
             seq(
               'SubPropertyChain:',
-              $.annotations,
+              optional($.annotations),
               sep1($.object_property_expression, 'o'),
             ),
           ),
@@ -214,7 +298,7 @@ module.exports = grammar({
             seq('Annotations:', $.annotation_annotated_list),
             seq('Domain:', $.description_annotated_list),
             seq('Range:', $.data_range_annotated_list),
-            seq('Characteristics:', $.annotations, 'Functional'),
+            seq('Characteristics:', optional($.annotations), 'Functional'),
             seq('SubPropertyOf:', $.data_property_expression_annotated_list),
             seq('EquivalentTo:', $.data_property_expression_annotated_list),
             seq('DisjointWith:', $.data_property_expression_annotated_list),
@@ -236,6 +320,61 @@ module.exports = grammar({
         ),
       ),
 
+    individual_frame: $ =>
+      seq(
+        'Individual:',
+        $.individual,
+        repeat(
+          choice(
+            seq('Annotations:', $.annotation_annotated_list),
+            seq('Types:', $.description_annotated_list),
+            seq('Facts:', $.fact_annotated_list),
+            seq('SameAs:', $.individual_annotated_list),
+            seq('DifferentFrom:', $.individual_annotated_list),
+          ),
+        ),
+      ),
+
+    fact: $ =>
+      seq(
+        optional('not'),
+        choice($.object_property_fact, $.data_property_fact),
+      ),
+    object_property_fact: $ => seq($._object_property_iri, $.individual),
+    data_property_fact: $ => seq($._data_property_iri, $.literal),
+
+    misc: $ =>
+      choice(
+        seq('EquivalentClasses:', optional($.annotations), $.description_2list), // optional annotations is not to spec. spec wrong?
+        seq('DisjointClasses:', optional($.annotations), $.description_2list),
+        seq(
+          'EquivalentProperties:',
+          optional($.annotations),
+          $.object_property_2list,
+        ),
+        seq(
+          'DisjointProperties:',
+          optional($.annotations),
+          $.object_property_2list,
+        ),
+        seq(
+          'EquivalentProperties:',
+          optional($.annotations),
+          $.data_property_2list,
+        ),
+        seq(
+          'DisjointProperties:',
+          optional($.annotations),
+          $.data_property_2list,
+        ),
+        seq('SameIndividual:', optional($.annotations), $.individual_2list),
+        seq(
+          'DifferentIndividuals:',
+          optional($.annotations),
+          $.individual_2list,
+        ),
+      ),
+
     // Annotated Lists
     description_annotated_list: $ =>
       annotated_list($.annotations, $.description),
@@ -250,6 +389,29 @@ module.exports = grammar({
     iri_annotated_list: $ => annotated_list($.annotations, $.iri),
     annotation_property_iri_annotated_list: $ =>
       annotated_list($.annotations, $._annotation_property_iri),
+    individual_annotated_list: $ => annotated_list($.annotations, $.individual),
+    fact_annotated_list: $ => annotated_list($.annotations, $.fact),
+
+    // List2
+    description_2list: $ => seq($.description, ',', sep1($.description, ',')),
+    object_property_2list: $ =>
+      seq(
+        $.object_property_expression,
+        ',',
+        sep1($.object_property_expression, ','),
+      ), // This is not correct to the grammar. Grammar is missing "objectProperty" Is the grammar wrong?
+    // resolved using https://github.com/spechub/Hets/blob/master/OWL2/ParseMS.hs
+    data_property_2list: $ =>
+      seq(
+        $.data_property_expression,
+        ',',
+        sep1($.data_property_expression, ','),
+      ), // same as with object_property
+    individual_2list: $ => seq($.individual, ',', sep1($.individual, ',')),
+
+    // List
+    individual_list: $ => sep1($.individual, ','),
+    literal_list: $ => sep1($.literal, ','),
 
     // IRI [RFC 3987]
     // TODO finish
@@ -271,7 +433,7 @@ module.exports = grammar({
       ),
     _iuserinfo: $ => $._iunreserved, // TODO not done
     _ihost: $ => $._iunreserved, // TODO not done
-    _iunreserved: $ => /[A-Za-z0-9_\-\.\~]+/, // TODO not done
+    _iunreserved: $ => /[A-Za-z0-9_\-\.\~:%]*/, // TODO not done
     _port: $ => /[0-9]*/,
     _ipath_abempty: $ => repeat1(seq('/', $._isegment)),
     _isegment: $ => $._iunreserved, // TODO not done
