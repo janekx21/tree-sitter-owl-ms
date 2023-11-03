@@ -658,7 +658,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "abbreviated_iri",
@@ -1306,6 +1306,10 @@
   },
   {
     "type": "Functional",
+    "named": false
+  },
+  {
+    "type": "HasKey:",
     "named": false
   },
   {

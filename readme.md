@@ -5,3 +5,4 @@
 - [x] add individual
 - [x] extend the class frame
 - [x] add dataPropertyFrame
+- [ ] re add the different iri types
