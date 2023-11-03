@@ -209,16 +209,13 @@ module.exports = grammar({
               optional($._annotations),
               alias($.description_2list, $.disjoint_union_of_list),
             ),
-            $.has_key_list,
+            seq(
+              'HasKey:',
+              optional($._annotations),
+              alias(repeat1($._object_property_expression), $.has_key_list),
+            ),
           ),
         ),
-      ),
-
-    has_key_list: $ =>
-      seq(
-        'HasKey:',
-        optional($._annotations),
-        repeat1($._object_property_expression),
       ),
 
     object_property_frame: $ =>
