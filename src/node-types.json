@@ -288,7 +288,7 @@
     }
   },
   {
-    "type": "datatype_frame",
+    "type": "datatype_equavalent_to",
     "named": true,
     "fields": {},
     "children": {
@@ -302,9 +302,28 @@
         {
           "type": "data_range",
           "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datatype_frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
         },
         {
           "type": "datatype",
+          "named": true
+        },
+        {
+          "type": "datatype_equavalent_to",
           "named": true
         }
       ]

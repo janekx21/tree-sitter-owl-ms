@@ -1,10 +1,10 @@
 [package]
-name = "tree-sitter-owl2ms"
-description = "owl2ms grammar for the tree-sitter parsing library"
+name = "tree-sitter-owl-ms"
+description = "owl-ms grammar for the tree-sitter parsing library"
 version = "0.0.1"
-keywords = ["incremental", "parsing", "owl2ms"]
+keywords = ["incremental", "parsing", "owl-ms"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/tree-sitter/tree-sitter-owl2ms"
+repository = "https://github.com/tree-sitter/tree-sitter-owl2-manchester-syntax"
 edition = "2018"
 license = "MIT"
 

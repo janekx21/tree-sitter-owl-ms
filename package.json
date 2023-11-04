@@ -1,5 +1,5 @@
 {
-  "name": "tree-sitter-owl2ms",
+  "name": "tree-sitter-owl-ms",
   "version": "1.0.0",
   "description": "Parser for owl2 manchester syntex based on tree sitter",
   "main": "bindings/node",

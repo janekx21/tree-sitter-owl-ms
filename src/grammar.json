@@ -1,5 +1,5 @@
 {
-  "name": "owl2ms",
+  "name": "owl_ms",
   "rules": {
     "source_file": {
       "type": "SYMBOL",
@@ -1427,29 +1427,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "EquivalentTo:"
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_annotations"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "data_range"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "datatype_equavalent_to"
             },
             {
               "type": "BLANK"
@@ -1462,6 +1441,31 @@
             "type": "SYMBOL",
             "name": "_annotations"
           }
+        }
+      ]
+    },
+    "datatype_equavalent_to": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "EquivalentTo:"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_annotations"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_range"
         }
       ]
     },

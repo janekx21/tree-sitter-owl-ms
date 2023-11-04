@@ -1,5 +1,3 @@
-
-
 "{" @punctuation.bracket
 "}" @punctuation.bracket
 "(" @punctuation.bracket

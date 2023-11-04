@@ -72,7 +72,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "tree-sitter-owl2ms"
+name = "tree-sitter-owl-ms"
 version = "0.0.1"
 dependencies = [
  "cc",
