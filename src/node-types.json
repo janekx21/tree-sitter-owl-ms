@@ -130,15 +130,23 @@
           "named": true
         },
         {
-          "type": "data_property_iri",
+          "type": "disjoint_union_of",
           "named": true
         },
         {
-          "type": "description",
+          "type": "disjoint_with",
           "named": true
         },
         {
-          "type": "object_property_iri",
+          "type": "equivalent_to",
+          "named": true
+        },
+        {
+          "type": "has_key",
+          "named": true
+        },
+        {
+          "type": "sub_class_of",
           "named": true
         }
       ]
@@ -445,6 +453,63 @@
     }
   },
   {
+    "type": "disjoint_union_of",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "description",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "disjoint_with",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "description",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "equivalent_to",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "description",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "floating_point_literal",
     "named": true,
     "fields": {}
@@ -453,6 +518,29 @@
     "type": "full_iri",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "has_key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "data_property_iri",
+          "named": true
+        },
+        {
+          "type": "object_property_iri",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "import",
@@ -785,6 +873,25 @@
     "type": "string_literal_with_language",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "sub_class_of",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation",
+          "named": true
+        },
+        {
+          "type": "description",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "typed_literal",

@@ -218,10 +218,13 @@ module.exports = grammar({
       seq(
         'Datatype:',
         $.datatype,
-        repeat(seq('Annotations:', $._annotation_annotated_list)),
-        optional(seq('EquivalentTo:', optional($._annotations), $.data_range)),
-        repeat(seq('Annotations:', $._annotation_annotated_list)),
+        repeat($._annotations),
+        optional($.datatype_equavalent_to),
+        repeat($._annotations),
       ),
+
+    datatype_equavalent_to: $ =>
+      seq('EquivalentTo:', optional($._annotations), $.data_range),
 
     class_frame: $ =>
       seq(
@@ -229,26 +232,27 @@ module.exports = grammar({
         $.class_iri,
         repeat(
           choice(
-            seq('Annotations:', $._annotation_annotated_list),
-            seq('SubClassOf:', $._description_annotated_list),
-            seq('EquivalentTo:', $._description_annotated_list),
-            seq('DisjointWith:', $._description_annotated_list),
-            seq(
-              'DisjointUnionOf:',
-              optional($._annotations),
-              $._description_2list,
-            ),
-            seq(
-              'HasKey:',
-              optional($._annotations),
-              repeat1(
-                choice(
-                  $._object_property_expression,
-                  $._data_property_expression,
-                ),
-              ),
-            ),
+            $._annotations,
+            $.sub_class_of,
+            $.equivalent_to,
+            $.disjoint_with,
+            $.disjoint_union_of,
+            $.has_key,
           ),
+        ),
+      ),
+
+    sub_class_of: $ => seq('SubClassOf:', $._description_annotated_list),
+    equivalent_to: $ => seq('EquivalentTo:', $._description_annotated_list),
+    disjoint_with: $ => seq('DisjointWith:', $._description_annotated_list),
+    disjoint_union_of: $ =>
+      seq('DisjointUnionOf:', optional($._annotations), $._description_2list),
+    has_key: $ =>
+      seq(
+        'HasKey:',
+        optional($._annotations),
+        repeat1(
+          choice($._object_property_expression, $._data_property_expression),
         ),
       ),
 
@@ -258,7 +262,7 @@ module.exports = grammar({
         $.object_property_iri,
         repeat(
           choice(
-            seq('Annotations:', $._annotation_annotated_list),
+            $._annotations,
             seq('Domain:', $._description_annotated_list),
             seq('Range:', $._description_annotated_list),
             seq('SubPropertyOf:', $._object_property_expression_annotated_list),
@@ -295,7 +299,7 @@ module.exports = grammar({
         $.data_property_iri,
         repeat(
           choice(
-            seq('Annotations:', $._annotation_annotated_list),
+            $._annotations,
             seq('Domain:', $._description_annotated_list),
             seq('Range:', $._data_range_annotated_list),
             seq('Characteristics:', optional($._annotations), 'Functional'),
@@ -312,7 +316,7 @@ module.exports = grammar({
         $.annotation_property_iri,
         repeat(
           choice(
-            seq('Annotations:', $._annotation_annotated_list),
+            $._annotations,
             seq('Domain:', $._iri_annotated_list),
             seq('Range:', $._iri_annotated_list),
             seq('SubPropertyOf:', $._annotation_property_iri_annotated_list),
@@ -326,7 +330,7 @@ module.exports = grammar({
         $._individual,
         repeat(
           choice(
-            seq('Annotations:', $._annotation_annotated_list),
+            $._annotations,
             seq('Types:', $._description_annotated_list),
             seq('Facts:', $._fact_annotated_list),
             seq('SameAs:', $._individual_annotated_list),

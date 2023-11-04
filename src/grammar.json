@@ -1419,17 +1419,8 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "Annotations:"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_annotation_annotated_list"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_annotations"
           }
         },
         {
@@ -1468,17 +1459,8 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "Annotations:"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_annotation_annotated_list"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_annotations"
           }
         }
       ]
@@ -1500,118 +1482,129 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "Annotations:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_annotation_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_annotations"
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "SubClassOf:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_description_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "sub_class_of"
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "EquivalentTo:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_description_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "equivalent_to"
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "DisjointWith:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_description_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "disjoint_with"
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "DisjointUnionOf:"
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_annotations"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_description_2list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "disjoint_union_of"
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "HasKey:"
-                  },
-                  {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_annotations"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "REPEAT1",
-                    "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_object_property_expression"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_data_property_expression"
-                        }
-                      ]
-                    }
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "has_key"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sub_class_of": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SubClassOf:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_description_annotated_list"
+        }
+      ]
+    },
+    "equivalent_to": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "EquivalentTo:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_description_annotated_list"
+        }
+      ]
+    },
+    "disjoint_with": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DisjointWith:"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_description_annotated_list"
+        }
+      ]
+    },
+    "disjoint_union_of": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DisjointUnionOf:"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_annotations"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_description_2list"
+        }
+      ]
+    },
+    "has_key": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "HasKey:"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_annotations"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_object_property_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_data_property_expression"
               }
             ]
           }
@@ -1635,17 +1628,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "Annotations:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_annotation_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_annotations"
               },
               {
                 "type": "SEQ",
@@ -1839,17 +1823,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "Annotations:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_annotation_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_annotations"
               },
               {
                 "type": "SEQ",
@@ -1963,17 +1938,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "Annotations:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_annotation_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_annotations"
               },
               {
                 "type": "SEQ",
@@ -2036,17 +2002,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "Annotations:"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_annotation_annotated_list"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_annotations"
               },
               {
                 "type": "SEQ",
