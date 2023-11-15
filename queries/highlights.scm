@@ -6,12 +6,13 @@
 "]" @punctuation.bracket
 
 "," @punctuation.delimiter
-"o" @punctuation.delimiter
+; "o" @punctuation.delimiter
 
 "integer" @keyword
 "decimal" @keyword
 "float" @keyword
 "string" @keyword
+"Prefix:" @keyword
 "Ontology:" @keyword
 "Import:" @keyword
 "Annotations:" @keyword
@@ -84,7 +85,7 @@
 (non_negative_integer) @number
 (typed_literal) @constant.builtin
 
-(full_iri) @type
-(abbreviated_iri) @type
-(simple_iri) @type
-(prefix_name) @type
+(full_iri) @variable
+(abbreviated_iri) @variable
+(simple_iri) @variable
+(prefix_name) @variable
