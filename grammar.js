@@ -20,7 +20,7 @@ module.exports = grammar({
     simple_iri: $ => $._pn_local,
     prefix_name: $ => /([A-Za-z][A-Za-z0-9_\-\.]*)?:/,
 
-    datatype: $ =>
+    _datatype: $ =>
       choice($.datatype_iri, 'integer', 'decimal', 'float', 'string'),
 
     // Iri Types
@@ -53,7 +53,7 @@ module.exports = grammar({
         $.decimal_literal,
         $.floating_point_literal,
       ),
-    typed_literal: $ => seq($._lexial_value, '^^', $.datatype),
+    typed_literal: $ => seq($._lexial_value, '^^', $._datatype),
     string_literal_no_language: $ => $._quoted_string,
     string_literal_with_language: $ => seq($._quoted_string, $._language_tag),
     integer_literal: $ => seq(optional(choice('+', '-')), $._digits),
@@ -118,13 +118,18 @@ module.exports = grammar({
     _data_primary: $ => seq(optional('not'), $._data_atomic),
     _data_atomic: $ =>
       choice(
-        $.datatype,
+        $._datatype,
         seq('{', $._literal_list, '}'),
         $.datatype_restriction,
         seq('(', $.data_range, ')'),
       ),
     datatype_restriction: $ =>
-      seq($.datatype, '[', sep1(seq($._facet, $._restriction_value), ','), ']'),
+      seq(
+        $._datatype,
+        '[',
+        sep1(seq($._facet, $._restriction_value), ','),
+        ']',
+      ),
 
     _facet: $ =>
       choice(
@@ -217,7 +222,7 @@ module.exports = grammar({
     datatype_frame: $ =>
       seq(
         'Datatype:',
-        $.datatype,
+        $._datatype,
         repeat($._annotations),
         optional($.datatype_equavalent_to),
         repeat($._annotations),
