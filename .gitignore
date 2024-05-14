@@ -2,3 +2,5 @@ node_modules
 target
 examples
 build
+owl-ms.so
+parser.o
