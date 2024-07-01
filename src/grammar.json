@@ -51,7 +51,7 @@
       "type": "PATTERN",
       "value": "([A-Za-z][A-Za-z0-9_\\-\\.]*)?:"
     },
-    "datatype": {
+    "_datatype": {
       "type": "CHOICE",
       "members": [
         {
@@ -237,7 +237,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "datatype"
+          "name": "_datatype"
         }
       ]
     },
@@ -779,7 +779,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "datatype"
+          "name": "_datatype"
         },
         {
           "type": "SEQ",
@@ -826,7 +826,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "datatype"
+          "name": "_datatype"
         },
         {
           "type": "STRING",
@@ -1414,7 +1414,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "datatype"
+          "name": "_datatype"
         },
         {
           "type": "REPEAT",
