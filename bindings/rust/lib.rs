@@ -34,6 +34,12 @@ pub fn language() -> Language {
 pub const NODE_TYPES: &'static str = include_str!("../../src/node-types.json");
 pub const GRAMMAR: &'static str = include_str!("../../src/grammar.json");
 
+// The content of the query's
+
+pub const HIGHLIGHTS_QUERY: &'static str = include_str!("../../queries/highlights.scm");
+pub const FOLDS_QUERY: &'static str = include_str!("../../queries/folds.scm");
+pub const INDENTS_QUERY: &'static str = include_str!("../../queries/indents.scm");
+
 // Uncomment these to include any queries that this grammar contains
 
 // pub const HIGHLIGHTS_QUERY: &'static str = include_str!("../../queries/highlights.scm");
