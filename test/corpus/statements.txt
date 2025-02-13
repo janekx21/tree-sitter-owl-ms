@@ -689,3 +689,20 @@ Ontology:
     SameAs: Jack , John2
     DifferentFrom: Susan ,Susan2
 ---
+
+===================
+Comment
+===================
+
+	# Comment
+Ontology: # Comment
+# Comment
+  Individual: John # Comment
+	# Comment
+
+---
+(source_file
+  (ontology
+    (individual_frame
+      (individual_iri
+        (simple_iri)))))

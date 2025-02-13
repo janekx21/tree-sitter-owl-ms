@@ -5,11 +5,11 @@ module.exports = grammar({
     [$.data_property_iri, $.object_property_iri],
     [$.datatype_iri, $.class_iri],
   ],
-  extras: ($) => [/[ \t\n\r]/ /*, TODO $._line_comment*/],
+  extras: ($) => [/[ \t\n\r]/, $._comment],
   rules: {
     // My rules
     source_file: ($) => $._ontology_document,
-    // _line_comment: _ => token(seq('#', /.*/)), // https://github.com/tree-sitter/tree-sitter-rust/blob/master/grammar.js
+    _comment: _ => token(seq('#', /.*/)), // https://github.com/tree-sitter/tree-sitter-rust/blob/master/grammar.js
 
     // https://www.w3.org/TR/owl2-manchester-syntax/
 
@@ -431,31 +431,21 @@ module.exports = grammar({
     _literal_list: ($) => sep1($._literal, ","),
 
     // IRI [RFC 3987]
-    // TODO finish
+    // TODO finish this rfc3987 URL rule
     _iri_rfc3987: ($) =>
-      seq(
-        $._scheme,
+      token(seq(
+        /[A-Za-z][A-Za-z0-9+\-\.]*/,
         ":",
-        $._ihier_part,
-        optional($._iquery),
-        optional($._ifragment),
-      ),
-    _scheme: ($) => /[A-Za-z][A-Za-z0-9+\-\.]*/,
-    _ihier_part: ($) => seq("//", $._iauthority, $._ipath_abempty), // TODO not finished
-    _iauthority: ($) =>
-      seq(
-        optional(seq($._iuserinfo, "@")),
-        $._ihost,
-        optional(seq(":", $._port)),
-      ),
-    _iuserinfo: ($) => $._iunreserved, // TODO not done
-    _ihost: ($) => $._iunreserved, // TODO not done
-    _iunreserved: ($) => /[A-Za-z0-9_\-\.\~:%]*/, // TODO not done
-    _port: ($) => /[0-9]*/,
-    _ipath_abempty: ($) => repeat1(seq("/", $._isegment)),
-    _isegment: ($) => $._iunreserved, // TODO not done
-    _iquery: ($) => /\?[A-Za-z0-9_\-\.\~\/\?]*/, // TODO not done
-    _ifragment: ($) => /\#[A-Za-z0-9_\-\.\~\/\?]*/, // TODO not done
+        seq("//",
+          seq(
+            optional(seq(/[A-Za-z0-9_\-\.\~:%]*/, "@")),
+            /[A-Za-z0-9_\-\.\~:%]*/,
+            optional(seq(":", /[0-9]*/)),
+          ),
+          repeat1(seq("/", /[A-Za-z0-9_\-\.\~:%]*/))),
+        optional(/\?[A-Za-z0-9_\-\.\~\/\?]*/),
+        optional(/\#[A-Za-z0-9_\-\.\~\/\?]*/),
+      )),
 
     // https://www.w3.org/TR/2008/REC-rdf-sparql-query-20080115/
     // TODO make more strict

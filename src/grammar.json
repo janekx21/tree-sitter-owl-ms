@@ -1,9 +1,26 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "owl_ms",
   "rules": {
     "source_file": {
       "type": "SYMBOL",
       "name": "_ontology_document"
+    },
+    "_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "#"
+          },
+          {
+            "type": "PATTERN",
+            "value": ".*"
+          }
+        ]
+      }
     },
     "_iri": {
       "type": "CHOICE",
@@ -3120,161 +3137,120 @@
       ]
     },
     "_iri_rfc3987": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_scheme"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_ihier_part"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_iquery"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_ifragment"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
-    "_scheme": {
-      "type": "PATTERN",
-      "value": "[A-Za-z][A-Za-z0-9+\\-\\.]*"
-    },
-    "_ihier_part": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "//"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_iauthority"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_ipath_abempty"
-        }
-      ]
-    },
-    "_iauthority": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_iuserinfo"
-                },
-                {
-                  "type": "STRING",
-                  "value": "@"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_ihost"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": ":"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_port"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
-    "_iuserinfo": {
-      "type": "SYMBOL",
-      "name": "_iunreserved"
-    },
-    "_ihost": {
-      "type": "SYMBOL",
-      "name": "_iunreserved"
-    },
-    "_iunreserved": {
-      "type": "PATTERN",
-      "value": "[A-Za-z0-9_\\-\\.\\~:%]*"
-    },
-    "_port": {
-      "type": "PATTERN",
-      "value": "[0-9]*"
-    },
-    "_ipath_abempty": {
-      "type": "REPEAT1",
+      "type": "TOKEN",
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "/"
+            "type": "PATTERN",
+            "value": "[A-Za-z][A-Za-z0-9+\\-\\.]*"
           },
           {
-            "type": "SYMBOL",
-            "name": "_isegment"
+            "type": "STRING",
+            "value": ":"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "//"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "PATTERN",
+                            "value": "[A-Za-z0-9_\\-\\.\\~:%]*"
+                          },
+                          {
+                            "type": "STRING",
+                            "value": "@"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "[A-Za-z0-9_\\-\\.\\~:%]*"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ":"
+                          },
+                          {
+                            "type": "PATTERN",
+                            "value": "[0-9]*"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "REPEAT1",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "/"
+                    },
+                    {
+                      "type": "PATTERN",
+                      "value": "[A-Za-z0-9_\\-\\.\\~:%]*"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\?[A-Za-z0-9_\\-\\.\\~\\/\\?]*"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\#[A-Za-z0-9_\\-\\.\\~\\/\\?]*"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
-    },
-    "_isegment": {
-      "type": "SYMBOL",
-      "name": "_iunreserved"
-    },
-    "_iquery": {
-      "type": "PATTERN",
-      "value": "\\?[A-Za-z0-9_\\-\\.\\~\\/\\?]*"
-    },
-    "_ifragment": {
-      "type": "PATTERN",
-      "value": "\\#[A-Za-z0-9_\\-\\.\\~\\/\\?]*"
     },
     "_pn_local": {
       "type": "PATTERN",
@@ -3289,6 +3265,10 @@
     {
       "type": "PATTERN",
       "value": "[ \\t\\n\\r]"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_comment"
     }
   ],
   "conflicts": [
@@ -3309,4 +3289,3 @@
   "inline": [],
   "supertypes": []
 }
-

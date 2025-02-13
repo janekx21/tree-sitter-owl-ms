@@ -852,6 +852,7 @@
   {
     "type": "source_file",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -960,15 +961,7 @@
     "named": false
   },
   {
-    "type": "/",
-    "named": false
-  },
-  {
-    "type": "//",
-    "named": false
-  },
-  {
-    "type": ":",
+    "type": "0",
     "named": false
   },
   {
@@ -985,10 +978,6 @@
   },
   {
     "type": ">=",
-    "named": false
-  },
-  {
-    "type": "@",
     "named": false
   },
   {
