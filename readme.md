@@ -1,3 +1,5 @@
+> Moved this repository into https://github.com/janekx21/owl-ms-language-server
+
 ## Do List
 
 - [x] add objectPropertyFrame
